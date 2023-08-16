@@ -43,7 +43,8 @@ def MotifEnumeration(Dna, k, d):
     Patterns = []
     motifs_candidate_all = []
     found_in_Dna = []
-    shortlist_cand = []
+    strand_kmers = {}
+
 
     for strand in Dna: 
         for w in range(len(strand)+1-k):
@@ -52,30 +53,33 @@ def MotifEnumeration(Dna, k, d):
             for pn in pattern_neighbors:
                 motifs_candidate_all.append(pn)
 
-    # print(len(motifs_candidate_all))
 
     for strand in Dna:
-        for mf in motifs_candidate_all:
-            print(f"{mf} exists in {strand}: {mf in strand}")
-            if mf in strand:
-                found_in_Dna.append(mf)
+        strand_data = []
+        for n in motifs_candidate_all:
+            for i in range(len(strand)+1-k):
+                c = strand[i:i+k]
+                nbs = Neighbors(c, d)
+                if n in nbs:
+                    strand_data.append(n)
+        strand_kmers[strand] = set(strand_data)
+        
 
-    print("found_in_Dna")
-    print(found_in_Dna)
-    print(len(found_in_Dna))
+    print("strand_kmers")
+    print(strand_kmers)
 
-    for i in range(len(found_in_Dna)-1):
-        if found_in_Dna[i] in Neighbors(found_in_Dna[i+1], d):
-           shortlist_cand.append(found_in_Dna[i])
+    strand_sets = list(strand_kmers.values())
+    print("strand_sets")
+    print(strand_sets)
 
+    res = set.intersection(*strand_sets)
 
-    print('shortlist_cand')
-    print(shortlist_cand)
-    print(len(shortlist_cand))
-    print(len(list(set(shortlist_cand))))
-    print(list(set(shortlist_cand)))
-            
-    #         if Pattern' appears in each string from Dna with at most d mismatches
+    print("res")
+    print(res)
+    print(len(res))
+    # print(res)
+
+    #         if Pattern' appears in each string from Dna with at most d mismatches         = if neighbor is found in each strand of dna
     #             add Pattern' to Patterns
     # remove duplicates from Patterns
     return Patterns
