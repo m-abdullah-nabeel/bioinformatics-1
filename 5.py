@@ -7,7 +7,7 @@ def FrequencyTable(Text, k):
     # print(f"n = {n}")
     for i in range(n-k):
         Pattern = Text[i:i+k] #← Text(i, k)
-        print(f"Pattern: {Pattern}")
+        # print(f"Pattern: {Pattern}")
         if Pattern not in freqMap: #freqMap[Pattern] doesn't exist
             freqMap[Pattern] = 1
         else:

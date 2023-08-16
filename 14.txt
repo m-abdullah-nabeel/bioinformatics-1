@@ -1,8 +1,0 @@
-MotifEnumeration(Dna, k, d)
-    Patterns ← an empty set 
-    for each k-mer Pattern in the first string in Dna                                        = generate all kmers
-        for each k-mer Pattern’ differing from Pattern by at most d mismatches               = get neighbor of each above kmer
-            if Pattern' appears in each string from Dna with at most d mismatches            = if neighbor appears in each strand with d hamming distance
-                add Pattern' to Patterns                                                     = select such a pattern
-    remove duplicates from Patterns
-    return Patterns
